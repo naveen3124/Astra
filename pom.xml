@@ -17,7 +17,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>en-US</project.build.locales>
     </properties>
-
     <modules>
         <module>native</module>
         <module>javaside</module>
