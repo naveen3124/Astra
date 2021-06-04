@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=target/astra-client-1.0-jar-with-dependencies.jar -DgroupId=com.astra.app -DartifactId=astra-client -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=target/astra-server-1.0-jar-with-dependencies.jar -DgroupId=com.astra.app -DartifactId=astra-server -Dversion=1.0 -Dpackaging=jar

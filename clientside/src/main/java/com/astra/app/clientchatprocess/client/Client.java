@@ -66,7 +66,7 @@ public class Client implements Runnable {
         Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
         while (true) {
-            System.out.println("Please input your nickname, do not contain any white space separators");
+            System.out.println("Please input your nickname!! ");
             this.nickName = scanner.nextLine();
 
             Message message = Message.msgNowLogin(this.nickName);
