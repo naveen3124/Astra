@@ -19,6 +19,7 @@
     </properties>
     <modules>
         <module>native</module>
-        <module>javaside</module>
+	<module>serverside</module>
+        <module>clientside</module>
     </modules>
 </project>
