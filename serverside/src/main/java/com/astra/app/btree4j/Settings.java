@@ -28,7 +28,7 @@ public final class Settings {
     private static Logger logger = LoggerFactory.getLogger(Settings.class);
 
     public static final String XBIRD_VERSION = "1.0";
-    private static final String PROPERTY_FILE_NAME = "com.astra.app.btree4j.properties";
+    private static final String PROPERTY_FILE_NAME = "/java/com/astra/app/btree4j/com.game.app.btree4j.properties";
     public static final boolean isLoggingEnabled = true;
 
     //--------------------------------------------
@@ -41,7 +41,10 @@ public final class Settings {
         try {
             // put default settings.
             InputStream is = Settings.class.getResourceAsStream(PROPERTY_FILE_NAME);
-            properties.load(is);
+	    if(is != null)
+		properties.load(is);
+	    else 
+		logger.info("property file not loaded correctly ");
             // put user specific settings.            
             File propFile = new File(userDir, PROPERTY_FILE_NAME);
             if (propFile.exists()) {
