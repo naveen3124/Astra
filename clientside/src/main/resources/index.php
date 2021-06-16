@@ -1,85 +1,145 @@
 <!DOCTYPE html>
 <html>
-	<body>
-		<head>
-			<style>
-				
-				body {
-				background-image: url('images/background_0.jpg');
-				background-repeat: no-repeat;
-				background-attachment: fixed;  
-				background-size: cover;
-				}
-				.p1 {
-				font-family: Helvetica, sans-serif, "Times New Roman";
-				font-size: 1.0em;
-				text-align: center;
-				}
-				.h1 {
-				font-family: Helvetica, sans-serif, "Times New Roman";
-				font-size: 2.5em;
-				text-align: center;
-				}
-				.primarybutton {
-				background-color: white; 
-				border: 2px solid #555555;
-				color: black;
-				padding: 16px 32px;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-family: Helvetica, sans-serif, "Times New Roman";
-				font-size: 1.0em;
-				margin: 4px 2px;
-				transition-duration: 0.4s;
-				cursor: pointer;
-				border-radius: 12px;
-				}
-				.center {
-				margin-left: auto;
-				margin-right: auto;
-				}
-				.myDiv {
-				border: 10px outset black;
-				background-color: white;    
-				text-align: center;
-				border-radius: 12px;
-				}
-				
-				.myDiv2 {
-				border: 3px outset white;
-				text-align: center;
-				
-				}
-				.primarybutton:hover {
-				background-color: #555555;
-				color: white;
-				}
-				
+	<head>
+		<style>
+			
+			body {
+			background-image: url('images/background_0.jpg');
+			background-repeat: no-repeat;
+			background-attachment: fixed;  
+			background-size: cover;
+			}
+			.p1 {
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 1.0em;
+			text-align: center;
+			}
+			.h1 {
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 2.5em;
+			text-align: center;
+			}
+			.primarybutton {
+			background-color: white; 
+			border: 2px solid #555555;
+			color: black;
+			padding: 16px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 1.0em;
+			margin: 4px 2px;
+			transition-duration: 0.4s;
+			cursor: pointer;
+			border-radius: 12px;
+			}
+			.center {
+			margin-left: auto;
+			margin-right: auto;
+			}
+			.myDiv {
+			border: 10px outset black;
+			background-color: white;    
+			text-align: center;
+			border-radius: 12px;
+			}
+			
+			.myDiv2 {
+			border: 3px outset white;
+			text-align: center;
+			
+			}
+			.primarybutton:hover {
+			background-color: #555555;
+			color: white;
+			}
+			.error {color: #FF0000;}
 			</style>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="http://malsup.github.com/jquery.form.js"></script>
 			<script>
-				function showAddAddress() {
-				var x = document.getElementById("form1");
+				$(document).ready(function() {
+					// bind 'myForm' and provide a simple callback function
+					$('#pform1').ajaxForm(function() {
+						alert("Thank you for your district!");
+					});
+				});
 				
-				x.style.display = "block";
-				}
 				function showAddParkAddress() {
-				var x = document.getElementById("pform1");
-				
-				x.style.display = "block";
+					$( "#form1" ).submit();					
 				} 
 			</script>
 		</head>
 		<body>
+			<?php
+				// define variables and set to empty values
+				$locnameErr = $loctypeErr = $wdnameErr = $stnameErr = $districtErr = $pinnoErr = $stateErr = $countryErr = "";
+				$locname = $loctype = $wdname = $district = $stname = $pinno = $state = $country ="";
+				if ($_SERVER["REQUEST_METHOD"] == "POST") {
+					if (empty($_POST["locname"])) {
+						$locnameErr = "location Name is required";
+						} else {
+						$locname = test_input($_POST["locname"]);
+					}
+					
+					if (empty($_POST["loctype"])) {
+						$loctypeErr = "loctype is required";
+						} else {
+						$loctype = test_input($_POST["loctype"]);
+					}
+					
+					if (empty($_POST["stname"])) {
+						$stnameErr = "street name is required";
+						} else {
+						$stname = test_input($_POST["stname"]);
+					}
+					
+					if (empty($_POST["district"])) {
+						$districtErr = "district name is required";
+						} else {
+						$district = test_input($_POST["district"]);
+					}
+					
+					if (empty($_POST["wdname"])) {
+						$wdnameErr = "Ward Name is required";
+						} else {
+						$wdname = test_input($_POST["wdname"]);
+					}
+					
+					if (empty($_POST["pinno"])) {
+						$pinnoErr = "Pin number is required";
+						} else {
+						$pinno = test_input($_POST["pinno"]);
+					}
+					
+					if (empty($_POST["state"])) {
+						$stateErr = "state is required";
+						} else {
+						$state = test_input($_POST["state"]);
+					}
+					
+					if (empty($_POST["country"])) {
+						$countryErr = "country is required";
+						} else {
+						$country = test_input($_POST["country"]);
+					}
+				}
+				function test_input($data) {
+					$data = trim($data);
+					$data = stripslashes($data);
+					$data = htmlspecialchars($data);
+					return $data;
+				}
+			?>
 			<h1 class="h1">ParkMan</h1>
 			<div style="text-align:center">
-				<button type="button" class="primarybutton" id="parkbtn" onclick="showAddAddress()"">Park Your Location</button>
+				<button type="button" class="primarybutton" id="parkbtn" ">Park Your Location</button>
 				
 				</div>
 				<div>
-				<div class="myDiv">
-					<form id="form1" style="display:none">
+				<div class="myDiv" id ="form1div">
+					<form id="form1" method = "post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 						<h1 class="h1"> My Address </h1>
 						
 						
@@ -94,20 +154,28 @@
 								<option class="p1" value="others">Others</option>
 								
 							</select>
+							<span class="error">* <?php echo $loctypeErr;?></span>
 							<b class="p1">Location Name: </b> <input type="text"  maxlength="30" name="locname">
+							<span class="error">* <?php echo $locnameErr;?></span>
 							<b class="p1">Street Name: </b> <input type="text" maxlength="30" name="stname">
+							<span class="error">* <?php echo $stnameErr;?></span>
 						</div>
 						<div class="myDiv2">
 							<b class="p1">Ward Name: </b> <input type="text" maxlength="30" name="wdname">
+							<span class="error">* <?php echo $wdnameErr;?></span>
 							<b class="p1">District: </b> <input type="text" maxlength="30" name="district">
+							<span class="error">* <?php echo $districtErr;?></span>
 							<b class="p1">Pincode: </b> <input type="number" maxlength="20" name="pinno">
+							<span class="error">* <?php echo $pinnoErr;?></span>
 						</div>
 						
 						<div class="myDiv2">
 							
 							<b class="p1">State: </b> <input type="text" maxlength="20" name="state">
+							<span class="error">* <?php echo $stateErr;?></span>
 							<b class="p1">Country: </b>
 							<select name="country" class="form-control" id="country">
+								
 								<option value="0" label="Select a country ... " selected="selected">Select a country ... </option>
 								<optgroup id="country-optgroup-Africa" label="Africa">
 									<option value="DZ" label="Algeria">Algeria</option>
@@ -373,47 +441,48 @@
 									<option value="WF" label="Wallis and Futuna">Wallis and Futuna</option>
 								</optgroup>
 							</select>
+							<span class="error">* <?php echo $countryErr;?></span>
+							</div>
+							<button type="button" class="primarybutton" onclick="showAddParkAddress()">Add Parking Address </button>
 							
-						</div>
-						<button type="button" class="primarybutton" onclick="showAddParkAddress()">Add Parking Address </button>
-						<button type="button" class="primarybutton">Done </button>
-						
-						
-					</form>
+						</form>
+					</div>
 				</div>
-			</div>
-			<div>
-				<div class="myDiv">
-					<form id="pform1" style="display:none">
-						<h1 class="h1"> Parking Address </h1>
-						<div class="myDiv2">
+				<div>
+					<div class="myDiv">
+						<form id="pform1" style="display:none">
+							<h1 class="h1"> Parking Address </h1>
+							<div class="myDiv2">
+								
+								<b class="p1">Parking Type: </b> 
+								<select name="parktype" id="parktype">
+									<option class="p1" value="paid">Paid</option>
+									<option class="p1" value="free">Free</option>
+									<option class="p1" value="openarea">OpenArea</option>								
+								</select>
+								<b class="p1">Location Name: </b> <input type="text"  maxlength="30" name="plocname">
+								<b class="p1">Street Name: </b> <input type="text" maxlength="30" name="pstname">
+							</div>
+							<div class="myDiv2">
+								<b class="p1">Ward Name: </b> <input type="text" maxlength="30" name="pwdname">
+								<b class="p1">Distance in KMS: </b> <input type="number" maxlength="30" name="pdistance">
+								<b class="p1">Pincode: </b> <input type="number" maxlength="20" name="ppinno">
+							</div>
 							
-							<b class="p1">Parking Type: </b> 
-							<select name="parktype" id="parktype">
-								<option class="p1" value="paid">Paid</option>
-								<option class="p1" value="free">Free</option>
-								<option class="p1" value="openarea">OpenArea</option>								
-							</select>
-							<b class="p1">Location Name: </b> <input type="text"  maxlength="30" name="plocname">
-							<b class="p1">Street Name: </b> <input type="text" maxlength="30" name="pstname">
-						</div>
-						<div class="myDiv2">
-							<b class="p1">Ward Name: </b> <input type="text" maxlength="30" name="pwdname">
-							<b class="p1">Distance in KMS: </b> <input type="number" maxlength="30" name="pdistance">
-							<b class="p1">Pincode: </b> <input type="number" maxlength="20" name="ppinno">
-						</div>
-						
-						<div class="myDiv2">
-							<b class="p1">LandMark: </b> <input type="text" maxlength="30" name="pwdname">
-						</div>
-						<button type="button" class="primarybutton">Add Another Address </button>
-						
-					</form>
+							<div class="myDiv2">
+								<b class="p1">LandMark: </b> <input type="text" maxlength="30" name="pwdname">
+							</div>
+							<button type="button" class="primarybutton">Add Another Address </button>
+							<button type="button" id = addrsubmit class="primarybutton">Done </button>
+							
+							
+							
+						</form>
+					</div>
+					
 				</div>
 				
-			</div>
-			
-			
-			
-		</body>
-	</html>
+				
+				
+			</body>
+		</html>
