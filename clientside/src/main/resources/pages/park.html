@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>	
+			body {
+			background-image: url('images/background_0.jpg');
+			background-repeat: no-repeat;
+			background-attachment: fixed;  
+			background-size: cover;
+			}
+			.p1 {
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 1.0em;
+			text-align: center;
+			}
+			.h1 {
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 2.5em;
+			text-align: center;
+			}
+			.primarybutton {
+			background-color: white; 
+			border: 2px solid #555555;
+			color: black;
+			padding: 16px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-family: Helvetica, sans-serif, "Times New Roman";
+			font-size: 1.0em;
+			margin: 4px 2px;
+			transition-duration: 0.4s;
+			cursor: pointer;
+			border-radius: 12px;
+			}
+			.center {
+			margin-left: auto;
+			margin-right: auto;
+			}
+			.myDiv {
+			border: 10px outset black;
+			background-color: white;    
+			text-align: center;
+			border-radius: 12px;
+			}
+			
+			.myDiv2 {
+			border: 3px outset white;
+			text-align: center;
+			
+			}
+			.primarybutton:hover {
+			background-color: #555555;
+			color: white;
+			}
+			.error {
+			border-color: red;
+			}
+			
+			.error-message {
+			color: red;
+			font-style: italic;
+			margin-bottom: 1em;
+			}
+		</style>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="http://malsup.github.com/jquery.form.js"></script>
+		<script src="bouncer.js">
+		</script>
+		<script>
+			
+			var validate = new Bouncer('form');
+			
+		</script>
+	</head>
+	<body>
+		
+		<h1 class="h1">ParkMan</h1>
+		<div style="text-align:center">
+			<button type="button" class="primarybutton" id="parkbtn" ">Parking Address</button>
+			
+			<div>
+			<div class="myDiv">
+				<form id="pform1" method="post" action= "/cgi-bin/storeparkingaddress.py">
+					<h1 class="h1"> Parking Address </h1>
+					<div class="myDiv2">
+						
+						<b class="p1">Parking Type: </b> 
+						<select name="parktype" id="parktype">
+							<option class="p1" value="paid">Paid</option>
+							<option class="p1" value="free">Free</option>
+							<option class="p1" value="openarea">OpenArea</option>								
+						</select>
+						<b class="p1">Location Name: </b> <input type="text"  maxlength="30" name="plocname">
+						<b class="p1">Street Name: </b> <input type="text" maxlength="30" name="pstname">
+					</div>
+					<div class="myDiv2">
+						<b class="p1">Ward Name: </b> <input type="text" maxlength="30" name="pwdname">
+						<b class="p1">Distance in KMS: </b> <input type="number" maxlength="30" name="pdistance">
+						<b class="p1">Pincode: </b> <input type="number" maxlength="20" name="ppinno">
+					</div>
+					
+					<div class="myDiv2">
+						<b class="p1">LandMark: </b> <input type="text" maxlength="30" name="pwdname">
+					</div>
+					<button type="submit" class="primarybutton">Add Another Address </button>
+					<button type="button" id = "addrsubmit" class="primarybutton">Done </button>
+					
+					
+					
+				</form>
+			</div>
+			
+		</div>
+		
+		
+		
+	</body>
+</html>
