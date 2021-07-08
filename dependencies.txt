@@ -1,0 +1,30 @@
+sudo apt install python3-pip
+sudo apt install python3.9
+sudo apt install cmake3
+
+https://www.linuxfordevices.com/tutorials/install-cmake-on-linux
+wget https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2-Linux-x86_64.sh -O cmake.sh
+sudo sh cmake.sh --prefix=/usr/local/ --exclude-subdir
+
+
+    Download Python from https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+    Extract the content in new folder
+    Open Terminal in the same directory
+    Run below code step by step :
+
+    sudo yum -y install gcc gcc-c++ 
+    sudo yum -y install zlib zlib-devel
+    sudo yum -y install libffi-devel 
+    sudo yum -y install openssl-devel
+    ./configure
+    make
+    make install
+
+chmod 755 opc after changing document root in httpd.conf
+
+seclinux issue do this chcon -R -h -t httpd_sys_content_t /home/opc/ParkMan/html
+
+also keep mind of changing your root directory to ur home directory
+https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website
+
+
