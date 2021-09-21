@@ -1,0 +1,55 @@
+ tried following Carl's answer, but it didn't solve the problem. It turns out that the version I installed required some extra configuration steps after installation.
+Background
+
+I looked at Apache's modules folder before I installed the mod_wsgi upgrade:
+
+$ ls -l /lib64/httpd/modules
+[...]
+-rwxr-xr-x. 1 root root 172800 Oct 30 22:44 mod_wsgi.so
+
+Then I installed the SCL repository, and looked to see which versions of mod_wsgi are available.
+
+$ sudo yum install -q -y centos-release-scl
+[...]
+$ yum search mod_wsgi
+[...]
+koschei-frontend.noarch : Web frontend for koschei using mod_wsgi
+mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+python27-mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+python33-mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+rh-python34-mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+rh-python35-mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+rh-python36-mod_wsgi.x86_64 : A WSGI interface for Python web applications in Apache
+viewvc-httpd-wsgi.noarch : ViewVC configuration for Apache/mod_wsgi
+[...]
+
+I'm using Python 3.6, so I installed the matching version and restarted Apache.
+
+$ sudo yum install -q -y rh-python36-mod_wsgi
+[...]
+$ sudo systemctl restart httpd
+
+Sadly, that didn't solve the problem. When I looked in Apache's modules folder, nothing had changed. Weird!
+
+$ ls -l /lib64/httpd/modules
+[...]
+-rwxr-xr-x. 1 root root 172800 Oct 30 22:44 mod_wsgi.so
+
+So what did get installed?
+
+$ rpm -ql rh-python36-mod_wsgi
+/opt/rh/httpd24/root/etc/httpd/conf.modules.d/10-rh-python36-wsgi.conf
+/opt/rh/httpd24/root/usr/lib64/httpd/modules/mod_rh-python36-wsgi.so
+/opt/rh/rh-python36/root/usr/share/doc/rh-python36-mod_wsgi-4.5.18
+/opt/rh/rh-python36/root/usr/share/doc/rh-python36-mod_wsgi-4.5.18/CREDITS.rst
+/opt/rh/rh-python36/root/usr/share/doc/rh-python36-mod_wsgi-4.5.18/LICENSE
+/opt/rh/rh-python36/root/usr/share/doc/rh-python36-mod_wsgi-4.5.18/README.rst
+
+Extra Configuration Steps
+
+It installed the files I need, but it didn't put them anywhere useful. With some hints from the README.rst file, I copied them into the right place.
+
+sudo cp /opt/rh/httpd24/root/usr/lib64/httpd/modules/mod_rh-python36-wsgi.so /lib64/httpd/modules
+sudo cp /opt/rh/httpd24/root/etc/httpd/conf.modules.d/10-rh-python36-wsgi.conf /etc/httpd/conf.modules.d
+sudo systemctl restart httpd
+

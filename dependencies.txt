@@ -24,6 +24,12 @@ chmod 755 opc after changing document root in httpd.conf
 
 seclinux issue do this chcon -R -h -t httpd_sys_content_t /home/opc/ParkMan/html
 
+seclinux setenforce 0
+
+logs are in /var/log/audit/audit.log
+
+chcon unconfined_u:object_r:httpd_unconfined_script_exec_t:s0 /home/opc/ParkMan/cgi-bin/get_address.py
+
 also keep mind of changing your root directory to ur home directory
 https://askubuntu.com/questions/767504/permissions-problems-with-var-www-html-and-my-own-home-directory-for-a-website
 
